@@ -5,15 +5,16 @@ function CartContextProvider({children}){
     const [allPhotos,setAllPhotos]=useState([])
     const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
     useEffect(() => {
+        
         fetch(url)
             .then(res => res.json())
             .then(data => setAllPhotos(data))
     }, [])
-
-    function toggleIsFavourite(id){
+    console.log(url)
+    function toggleIsFavorite(id){
         const updatedArray=allPhotos.map(photo=>{
             if(photo.id===id){
-                return {...photo,isFavourite:!photo.isFavourite}
+                return {...photo,isFavorite:!photo.isFavorite}
             }
             return photo
         })
@@ -22,7 +23,7 @@ function CartContextProvider({children}){
    
     
     return(
-       <CartContext.Provider value={{allPhotos,toggleIsFavourite}}>
+       <CartContext.Provider value={{allPhotos,toggleIsFavorite}}>
            {children}
        </CartContext.Provider>
     )
