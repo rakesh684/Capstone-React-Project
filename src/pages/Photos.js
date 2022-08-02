@@ -8,7 +8,6 @@ function Photos() {
     const imageElements=allPhotos.map((img,i)=>(
         <Image key={img.id} img={img} className={getClass(i)}/>
     ))
-    console.log(allPhotos)
     return (
         <main className="photos">
             {imageElements}

@@ -10,7 +10,6 @@ function CartContextProvider({children}){
             .then(res => res.json())
             .then(data => setAllPhotos(data))
     }, [])
-    console.log(url)
     function toggleIsFavorite(id){
         const updatedArray=allPhotos.map(photo=>{
             if(photo.id===id){

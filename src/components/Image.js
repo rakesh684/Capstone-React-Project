@@ -1,4 +1,5 @@
 import React,{useContext, useState} from "react";
+import PropTypes from 'prop-types'
 import { CartContext } from "../context";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faHeart,faPlusCircle,faHeartbeat} from '@fortawesome/fontawesome-free-solid'
@@ -18,7 +19,7 @@ function Image({className,img}){
         <div
          className={`${className} image-container`}
          onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+         onMouseLeave={() => setHovered(false)}
          >
             <img src={img.url} className="image-grid" alt=""/>
             {heartIcon() }
@@ -26,5 +27,15 @@ function Image({className,img}){
             
         </div>
     ) 
+}
+
+Image.propTypes={
+    className:PropTypes.string,
+    img:PropTypes.shape({
+        id:PropTypes.string.isRequired,
+        url:PropTypes.string.isRequired,
+        isFavorite:PropTypes.bool
+    })
+
 }
 export default Image
