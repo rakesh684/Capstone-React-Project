@@ -1,20 +1,42 @@
 import React,{useContext, useState} from "react";
 import PropTypes from 'prop-types'
 import { CartContext } from "../context";
+// import useHover from "../hooks/useHover";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faHeart,faPlusCircle,faHeartbeat} from '@fortawesome/fontawesome-free-solid'
+import {faHeart,faPlusCircle,faHeartbeat,faShoppingCart} from '@fortawesome/fontawesome-free-solid'
+
 function Image({className,img}){
-    const {toggleIsFavorite}=useContext(CartContext)
+   
+    const {toggleIsFavorite,addCartItems,cartItems,removeFromCart}=useContext(CartContext)
     const [hovered,setHovered]=useState(false)
+    
     function heartIcon(){
         if(img.isFavorite){
-            return <FontAwesomeIcon icon={faHeart} onClick={()=>toggleIsFavorite(img.id)} className="favorite"/>
+            return <FontAwesomeIcon icon={faHeart} 
+            onClick={()=>toggleIsFavorite(img.id)} 
+            className="favorite"/>
         }
         else if(hovered){
-            return <FontAwesomeIcon icon={faHeartbeat} onClick={()=>toggleIsFavorite(img.id) } className="favorite"/>
+            return <FontAwesomeIcon icon={faHeartbeat} 
+            onClick={()=>toggleIsFavorite(img.id) } 
+            className="favorite"/>
         }
     }
-    const cartIcon=hovered &&<FontAwesomeIcon icon={faPlusCircle} className="cart"/>
+    
+    function cartIcon(){
+        const alreadyInCart=cartItems.some(item=>
+            item.id===img.id)
+        if(alreadyInCart){
+          return <FontAwesomeIcon icon={faShoppingCart}
+          onClick={()=>removeFromCart(img.id)} className="cart"/>
+        }
+        else if(hovered){
+           return <FontAwesomeIcon icon={faPlusCircle} 
+            onClick={()=>addCartItems(img)} className="cart"/>
+        }
+       
+    }
+    
     return (
         <div
          className={`${className} image-container`}
@@ -23,7 +45,7 @@ function Image({className,img}){
          >
             <img src={img.url} className="image-grid" alt=""/>
             {heartIcon() }
-            {cartIcon}
+            {cartIcon()}
             
         </div>
     ) 
